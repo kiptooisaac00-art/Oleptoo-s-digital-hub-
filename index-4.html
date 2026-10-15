@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OLEPTOO'S DIGITAL HUB</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5ef;--surf:#fff;--ink:#17261f;--mute:#5d6d64;--line:#d8dfd3;--brand:#1f4d3a;--brand-ink:#fff;--sun:#e8b923;--EE:#2f7d4f;--ME:#2b7a9b;--AE:#c98a0b;--BE:#b8412f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#111b16;--surf:#18261f;--ink:#e8efe9;--mute:#9bb0a3;--line:#2a3b32;--brand:#e8b923;--brand-ink:#111b16;--EE:#5bbf84;--ME:#5db4d6;--AE:#e8b923;--BE:#e8806d}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#111b16;--surf:#18261f;--ink:#e8efe9;--mute:#9bb0a3;--line:#2a3b32;--brand:#e8b923;--brand-ink:#111b16;--EE:#5bbf84;--ME:#5db4d6;--AE:#e8b923;--BE:#e8806d}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+header{background:var(--brand);color:var(--brand-ink);padding:20px 16px;border-bottom:6px solid var(--sun)}
+header .wrap{padding:0}h1{margin:0;font-size:1.7rem;font-weight:800;letter-spacing:-.02em}header p{margin:4px 0 0;opacity:.85;font-size:.95rem}
+h2{font-size:1.15rem;margin:0 0 10px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-top:10px}
+button,.btn{font:inherit;font-weight:600;background:var(--brand);color:var(--brand-ink);border:0;border-radius:8px;padding:9px 14px;cursor:pointer}
+button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+textarea,input[type=search],select{font:inherit;width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+textarea{min-height:90px;font-family:ui-monospace,monospace;font-size:.85rem}
+.hint{color:var(--mute);font-size:.88rem;margin:8px 0 0}
+.tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.tabs button{background:none;color:var(--mute);border-radius:8px 8px 0 0;border-bottom:3px solid transparent}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--sun)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:12px}.stat b{display:block;font-size:1.8rem;font-weight:800;line-height:1.1}.stat span{color:var(--mute);font-size:.85rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.bar{display:grid;grid-template-columns:92px 1fr 44px;gap:8px;align-items:center;margin:6px 0;font-size:.9rem}
+.bar i{display:block;height:16px;border-radius:4px;background:var(--c,var(--brand));min-width:2px}.bar .t{background:var(--line);border-radius:4px}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{color:var(--mute);font-weight:600;cursor:pointer}
+tr.go{cursor:pointer}tr.go:hover{background:var(--bg)}
+.pill{display:inline-block;padding:1px 9px;border-radius:99px;font-weight:700;font-size:.82rem;color:#fff;background:var(--c)}
+.EE{--c:var(--EE)}.ME{--c:var(--ME)}.AE{--c:var(--AE)}.BE{--c:var(--BE)}
+.AE.pill{color:#1a1200}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--surf);color:var(--ink);max-width:460px;width:calc(100% - 24px)}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.empty{text-align:center;color:var(--mute);padding:24px}
+.flag{border-left:4px solid var(--BE);padding-left:10px;margin:6px 0}.flag.pay{border-left-color:var(--ME);padding:6px 10px;background:var(--card,transparent)}
+.tabs{overflow-x:auto}.tabs button{white-space:nowrap}
+.rc{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}.rc h3{margin:0;font-size:1.2rem}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.ctl>*{flex:1 1 180px}
+.up{color:var(--EE)}.dn{color:var(--BE)}
+.bar{grid-template-columns:130px 1fr 44px}
+.sw{background:transparent;color:var(--brand-ink);border:1px solid var(--brand-ink)}.sw[aria-pressed=true]{background:var(--brand-ink);color:var(--brand)}
+body[data-mode=parent] .teach{display:none}body:not([data-mode=parent]) #parent{display:none}
+details{margin:6px 0}
+input:not([type=file]):not([type=search]){font:inherit;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-width:0}
+.banner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;background:var(--brand);color:var(--brand-ink);border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.mk.EE{color:var(--EE);font-weight:600}.mk.ME{color:var(--ME)}.mk.AE{color:var(--AE)}.mk.BE{color:var(--BE);font-weight:700}
+.rch{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--brand);color:var(--brand-ink);margin:-18px -18px 12px;padding:12px 18px;border-radius:10px 10px 0 0}.rch h3{margin:0}.rch span{font-size:.85rem;opacity:.85}.rct{font-weight:700}
+.rci{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}.rci div{border:1px solid var(--line);border-radius:8px;padding:6px 10px}.rci small{display:block;color:var(--mute);font-size:.75rem}
+tfoot th{border-top:2px solid var(--line)}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.steps span{background:var(--surf);border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:.85rem}.steps b{color:var(--brand)}
+footer{color:var(--mute);font-size:.85rem;text-align:center;padding:16px}
+.chip{margin-left:auto;font-size:.85rem;padding:3px 12px;border-radius:99px;background:rgba(255,255,255,.18)}
+body[data-mode=plans] .teach{display:none}body:not([data-mode=plans]) #plans{display:none}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.plan{border:2px solid var(--line);border-radius:10px;padding:12px;background:var(--surf);color:var(--ink);text-align:left;font-weight:400}
+.plan[aria-pressed=true]{border-color:var(--sun);box-shadow:0 0 0 2px var(--sun)}.plan b{display:block;font-size:1.3rem}.plan small{display:block;color:var(--mute)}
+.tag{background:var(--sun);color:#1a1200;border-radius:99px;padding:0 8px;font-size:.75rem;font-weight:700}
+body[data-mode=owner] .teach{display:none}body:not([data-mode=owner]) #owner{display:none}
+footer a{color:inherit}
+figure{margin:0}
+@media print{.np{display:none!important}body{background:#fff;color:#000}.rc{--line:#999;break-after:page;border:1px solid #000;background:#fff;color:#000}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}.bar .t{background:#ddd}.up,.dn{color:#000}}
+</style>
+</head>
+<body>
+<header class="np"><div class="wrap"><h1>OLEPTOO'S DIGITAL HUB</h1><p>Upload marks, see how every learner is performing against CBC levels, and spot who needs support.</p><div class='row' style='justify-content:flex-start'><button class='sw' id='mt' aria-pressed='true'>Teacher</button><button class='sw' id='mp' aria-pressed='false'>Parent portal</button><button class='sw' id='ms' aria-pressed='false'>Subscribe</button><span class='chip' id='lic'></span></div></div></header>
+<main class="wrap">
+<div class="steps np teach"><span><b>1</b> Class list</span><span><b>2</b> Subject marks</span><span><b>3</b> Results</span><span><b>4</b> Report cards</span><span><b>5</b> Parents</span></div>
+<section class="card np teach" aria-labelledby="up">
+<h2 id="up">1. Add learner marks</h2>
+<div class="ctl"><label>Term <select id="term"><option>Term 1</option><option>Term 2</option><option>Term 3</option></select></label></div>
+<div class="drop">
+<input id="file" type="file" accept=".csv,.tsv,.txt" hidden>
+<button onclick="file.click()">Upload CSV file</button>
+<div class="row"><button class="ghost" id="sample">Try sample class</button><button class="ghost" id="tpl">Download template</button><button class="ghost" id="clear">Clear data</button></div>
+<p class="hint">Columns: Adm, Name, then one column per subject with marks out of 100. Optional Gender or Class columns are kept. Exported from Excel? Save as CSV. Use one column per exam, such as Biology Opener, Biology Mid-term and Biology End-term, or let each subject teacher add marks in the Marks entry tab. Pick the term first; each term is stored separately for trends.</p>
+</div>
+<details style="margin-top:10px"><summary>Or paste from a spreadsheet</summary>
+<textarea id="paste" placeholder="Adm,Name,Biology,Agriculture&#10;1001,Achieng Otieno,78,64"></textarea>
+<div class="row" style="justify-content:flex-start"><button id="loadp">Analyse pasted data</button></div></details>
+<p class="hint" id="msg" role="status"></p>
+</section>
+
+<section class='card np teach' aria-labelledby='sh'><h2 id='sh'>2. Set up your class (or add it by hand)</h2><p class='hint'>Enter the class details and student names once. Subject teachers then add marks for their own subjects in the Marks entry tab, for the term chosen above.</p><div class='ctl'><input id='ssch' placeholder='School name' aria-label='School name'><input id='stch' placeholder='Class teacher' aria-label='Class teacher'></div><div class='ctl'><input id='scls' placeholder='Class or stream, e.g. Grade 10 East' aria-label='Class'><input id='syr' placeholder='Year' inputmode='numeric' aria-label='Year'><input id='sn' type='number' min='1' max='200' placeholder='Number of students' aria-label='Number of students'></div><div class='ctl'><input id='ssub' placeholder='Subjects, separated by commas' aria-label='Subjects'><select id='sadd' aria-label='Quick add subjects'><option value=''>Quick add subjects</option><option>Core subjects</option><option>Core subjects (STEM)</option><option>Core subjects (other pathways)</option><option>STEM</option><option>Social Sciences</option><option>Arts and Sports Science</option></select></div><div class='row' style='justify-content:flex-start'><button id='sbuild'>Create class list</button><button class='ghost' id='sedit'>Edit class list</button></div><div id='sheet' style='margin-top:12px'></div></section>
+<div id='app' class='teach'></div>
+<div id='parent'><div class='card np'><h2>Parent portal</h2><p class='hint'>Enter the code and 6-digit PIN your child's teacher sent you. Your child's results are private and are not stored on any server.</p><textarea id='pcode' placeholder='Paste the code here' aria-label='Parent code'></textarea><div class='ctl' style='margin-top:8px'><input id='ppin' inputmode='numeric' maxlength='6' placeholder='6-digit PIN' aria-label='PIN'><button id='popen'>View results</button></div><p class='hint' id='pmsg' role='status'></p></div><div id='pout'></div></div>
+<div id='plans' class='np'></div>
+<div id='owner' class='np'></div>
+</main>
+<footer class="np">OLEPTOO'S DIGITAL HUB · Marks stay on the device you use. Keep a copy of your original files. · <a href='#' id='own'>Owner</a></footer>
+<dialog id="dlg"></dialog>
+
+<script>
+const LV=[[90,'EE1',8],[75,'EE2',7],[58,'ME1',6],[41,'ME2',5],[31,'AE1',4],[21,'AE2',3],[11,'BE1',2],[0,'BE2',1]];
+const BANDS={EE:'Exceeding expectations',ME:'Meeting expectations',AE:'Approaching expectations',BE:'Below expectations'};
+const lv=p=>LV.find(l=>p>=l[0]);
+const bd=l=>l[1].slice(0,2);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const f1=n=>(Math.round(n*10)/10).toFixed(1);
+let D=null,T={},cur='Term 1',tab='overview',sortK='avg',sortD=-1,q='',school='',teacher='',pick='all',cls='',yr=String(new Date().getFullYear()),W=[1,1,1],msub='';
+
+function say(t){$('msg').textContent=t}
+function splitLine(l,d){const o=[];let c='',inq=false;for(const ch of l){if(ch=='"')inq=!inq;else if(ch==d&&!inq){o.push(c.trim());c=''}else c+=ch}o.push(c.trim());return o}
+function parse(text){
+  const lines=text.replace(/\r/g,'').split('\n').filter(l=>l.trim());
+  if(lines.length<2)throw new Error('Add a header row and at least one learner.');
+  const d=lines[0].includes('\t')?'\t':',';
+  const h=splitLine(lines[0],d),rows=lines.slice(1).map(l=>splitLine(l,d));
+  let ia=h.findIndex(x=>/adm|^id$|^no/i.test(x)),inm=h.findIndex(x=>/name/i.test(x));
+  if(inm<0)inm=ia===0?1:0;
+  const meta=h.map((x,i)=>/gender|sex|class|stream|pathway|phone|mobile|contact|guardian|parent/i.test(x)?i:-1).filter(i=>i>=0);
+  const sub=h.map((x,i)=>i).filter(i=>i!==ia&&i!==inm&&!meta.includes(i)&&numCol(rows,i));
+  if(!sub.length)throw new Error('No subject columns with numeric marks were found.');
+  const EXR=/^(.+?)[\s:_-]+(opener|open|mid[\s-]?term|mid|end[\s-]?term|end)$/i,xc={};
+  sub.forEach(i=>{const m=h[i].match(EXR);if(m)xc[i]=[m[1].trim(),/^open/i.test(m[2])?0:/^mid/i.test(m[2])?1:2]});
+  const out=rows.map((r,n)=>{const sc={},ex={};sub.forEach(i=>{const v=parseFloat(r[i]);if(isNaN(v))return;const c=Math.max(0,Math.min(100,v));if(xc[i]){(ex[xc[i][0]]=ex[xc[i][0]]||[null,null,null])[xc[i][1]]=c}else sc[h[i]]=c});
+    const m={};meta.forEach(i=>m[h[i]]=r[i]);
+    return{adm:ia>=0?r[ia]:String(n+1),name:r[inm]||'Learner '+(n+1),meta:m,sc,ex}}).filter(r=>Object.keys(r.sc).length||Object.keys(r.ex).length);
+  const subj=[...new Set(sub.map(i=>xc[i]?xc[i][0]:h[i]))];
+  return{subjects:subj,list:subj,rows:out};
+}
+function load(text){
+  try{D=T[cur]=parse(text);PC={};save();say('Loaded '+D.rows.length+' learners and '+D.subjects.length+' subjects.');render()}
+  catch(e){say('Could not read the data: '+e.message+' Check the header row and that marks are numbers.')}
+}
+function save(){try{localStorage.setItem('cbe-hub2',JSON.stringify({T,school,teacher,grp,tph,bm,cls,yr,W},(k,v)=>k=='rows'?undefined:v))}catch(e){}}
+function restore(){try{const s=localStorage.getItem('cbe-hub2');if(s){const o=JSON.parse(s);T=o.T||{};school=o.school||school;teacher=o.teacher||'';grp=o.grp||'';tph=o.tph||'';bm=o.bm||'';cls=o.cls||'';yr=o.yr||yr;W=o.W||W}else{const l=localStorage.getItem('cbe-hub');if(l)T['Term 1']=JSON.parse(l)}D=T[cur]||null}catch(e){}}
+
+function enrich(){
+  D.rows.forEach(r=>{const v=Object.values(r.sc);r.path=pathOf(r);r.avg=mean(v);r.L=lv(r.avg);
+    const e=Object.entries(r.sc).sort((a,b)=>b[1]-a[1]);r.best=e[0];r.worst=e[e.length-1];
+    r.weak=e.filter(x=>bd(lv(x[1]))=='AE'||bd(lv(x[1]))=='BE')});
+}
+function bars(items,max){return items.map(i=>`<div class="bar ${i.c||''}"><span>${esc(i.l)}</span><div class="t"><i style="width:${max?i.v/max*100:0}%"></i></div><span class="n">${i.n}</span></div>`).join('')}
+function dist(rows){const c={EE:0,ME:0,AE:0,BE:0};rows.forEach(r=>c[bd(r.L)]++);return c}
+
+function render(){
+  const A=$('app');
+  applyBasis();
+  if(D&&D.all&&D.all.length&&!D.rows.length){A.innerHTML=marksView();bindMarks();return}
+  if(!D||!D.rows.length){A.innerHTML='<div class="card empty">No data yet. Upload a CSV or try the sample class to see your analysis.</div>';return}
+  enrich();ranks();
+  const R=D.rows,cm=mean(R.map(r=>r.avg)),c=dist(R),support=R.filter(r=>['AE','BE'].includes(bd(r.L)));
+  const tabs=[['overview','Overview'],['marks','Marks entry'],['learners','Learners'],['results','Results sheet'],['pathways','Pathways'],['subjects','Subjects'],['trend','Trend'],['reports','Report cards'],['parents','Parents']];
+  let h=`<div class="banner np"><b>${esc(school)}</b><span>${esc(cls)||'Class'} · ${cur} · ${esc(yr)}</span></div><div class="stats np"><div class="stat"><b>${R.length}</b><span>Learners · ${cur}</span></div><div class="stat"><b>${f1(cm)}%</b><span>Class mean (${lv(cm)[1]})</span></div><div class="stat"><b>${D.subjects.length}</b><span>Subjects</span></div><div class="stat"><b>${Math.round((c.EE+c.ME)/R.length*100)}%</b><span>Meeting or exceeding</span></div><div class="stat"><b>${support.length}</b><span>Need extra support</span></div></div>
+  <div class="tabs np" role="tablist">${tabs.map(t=>`<button role="tab" aria-selected="${tab==t[0]}" data-tab="${t[0]}">${t[1]}</button>`).join('')}<span style="flex:1"></span><button class="ghost" id="exp">Export CSV</button></div>`;
+  if(tab=='overview'){
+    h+=`<div class="grid2"><div class="card"><h2>Performance levels</h2><div style="text-align:center">${donut(c,R.length)}</div>${bars(Object.keys(BANDS).map(k=>({l:k+' – '+BANDS[k].split(' ')[0],v:c[k],n:c[k],c:k})),Math.max(...Object.values(c)))}<p class="hint">Level from each learner's average across all subjects.</p></div>
+    <div class="card"><h2>Subject means</h2>${bars(D.subjects.map(s=>{const m=mean(R.map(r=>r.sc[s]).filter(x=>x!=null));return{l:s,v:m,n:f1(m),c:bd(lv(m))}}),100)}</div></div>
+    ${examCard()}${distCard()}<div class="grid2"><div class="card"><h2>Top five</h2>${[...R].sort((a,b)=>b.avg-a.avg).slice(0,5).map(r=>`<div class="bar" style="grid-template-columns:1fr auto"><span>${esc(r.name)}</span><span><b>${f1(r.avg)}</b> <span class="pill ${bd(r.L)}">${r.L[1]}</span></span></div>`).join('')}</div>
+    <div class="card"><h2>Learners to support first</h2>${support.length?[...support].sort((a,b)=>a.avg-b.avg).slice(0,5).map(r=>`<div class="flag">${esc(r.name)} – ${f1(r.avg)}% <span class="pill ${bd(r.L)}">${r.L[1]}</span><br><small>Weakest: ${esc(r.worst[0])} (${r.worst[1]})</small></div>`).join(''):'<p class="hint">Every learner is meeting or exceeding expectations.</p>'}</div></div>`;
+  }
+  if(tab=='learners'){
+    const rows=R.filter(r=>(r.name+r.adm).toLowerCase().includes(q.toLowerCase())).sort((a,b)=>{const x=sortK=='name'?a.name.localeCompare(b.name):a[sortK],y=sortK=='name'?0:b[sortK];return sortK=='name'?x*sortD*-1:(x-y)*sortD*-1});
+    h+=`<div class="card"><input type="search" id="q" placeholder="Search by name or admission number" value="${esc(q)}" aria-label="Search learners"><div class="tw" style="margin-top:10px"><table><thead><tr><th data-s="name">Name</th><th>Adm</th><th>Pathway</th><th data-s="avg">Average</th><th>Level</th><th>Strongest</th><th>Weakest</th></tr></thead><tbody>${rows.map(r=>`<tr class="go" tabindex="0" data-i="${R.indexOf(r)}"><td>${esc(r.name)}</td><td>${esc(r.adm)}</td><td>${esc(r.path)}</td><td>${f1(r.avg)}</td><td><span class="pill ${bd(r.L)}">${r.L[1]}</span></td><td>${esc(r.best[0])}</td><td>${esc(r.worst[0])}</td></tr>`).join('')}</tbody></table></div><p class="hint">Tap a learner for subject-by-subject levels.</p></div>`;
+  }
+  if(tab=='subjects'){
+    h+=D.subjects.map(s=>{const v=R.filter(r=>r.sc[s]!=null).map(r=>({r,s:r.sc[s]})),m=mean(v.map(x=>x.s)),cc={EE:0,ME:0,AE:0,BE:0};v.forEach(x=>cc[bd(lv(x.s))]++);
+      const top=[...v].sort((a,b)=>b.s-a.s)[0],low=[...v].sort((a,b)=>a.s-b.s)[0];
+      return`<div class="card"><h2>${esc(s)} <span class="pill ${bd(lv(m))}">${f1(m)}% · ${lv(m)[1]}</span></h2>${subInfo(s)}${bars(Object.keys(cc).map(k=>({l:k,v:cc[k],n:cc[k],c:k})),v.length)}<p class="hint">Highest: ${esc(top.r.name)} (${top.s}) · Lowest: ${esc(low.r.name)} (${low.s}) · Support needed: ${cc.AE+cc.BE} learners</p></div>`}).join('');
+  }
+  if(tab=='marks')h+=marksView();
+  if(tab=='trend')h+=trendView();
+  if(tab=='reports')h+=reportsView();
+  if(tab=='pathways')h+=pathView();
+  if(tab=='results')h+=resultsView();
+  if(tab=='parents')h+=parentsView();
+  A.innerHTML=h;
+  bindExtra();
+  A.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render()});
+  const ex=$('exp');if(ex)ex.onclick=exportCSV;
+  const qi=$('q');if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$('q');n.focus();n.setSelectionRange(p,p)};
+  A.querySelectorAll('th[data-s]').forEach(t=>t.onclick=()=>{sortD=sortK==t.dataset.s?-sortD:-1;sortK=t.dataset.s;render()});
+  A.querySelectorAll('tr.go').forEach(t=>{const o=()=>detail(+t.dataset.i);t.onclick=o;t.onkeydown=e=>{if(e.key=='Enter')o()}});
+}
+function detail(i){
+  const r=D.rows[i];
+  $('dlg').innerHTML=`<h2>${esc(r.name)}</h2><p class="hint">Adm ${esc(r.adm)} · Average ${f1(r.avg)}% · <span class="pill ${bd(r.L)}">${r.L[1]}</span> ${BANDS[bd(r.L)]}</p>${bars(Object.entries(r.sc).map(([s,v])=>({l:s,v,n:v,c:bd(lv(v))})),100)}${curveSvg(curveData(r))}${r.weak.length?`<div class="flag">Focus on: ${r.weak.map(w=>esc(w[0])).join(', ')}</div>`:'<p class="hint">Meeting or exceeding expectations in every subject.</p>'}<div class="row" style="justify-content:flex-end"><button onclick="dlg.close()">Close</button></div>`;
+  $('dlg').showModal();
+}
+function download(name,text){
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(text);a.download=name;document.body.appendChild(a);a.click();a.remove();
+}
+function exportCSV(){
+  const h=['Adm','Name','Average','Level','Points',...D.subjects.map(s=>s+' (level)')];
+  const rows=D.rows.map(r=>[r.adm,r.name,f1(r.avg),r.L[1],r.L[2],...D.subjects.map(s=>r.sc[s]==null?'':r.sc[s]+' ('+lv(r.sc[s])[1]+')')]);
+  download('cbe-analysis.csv',[h,...rows].map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n'));
+  say('Analysis exported. If nothing downloaded, copy the table into a spreadsheet instead.');
+}
+$('file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>load(r.result);r.readAsText(f)};
+$('loadp').onclick=()=>load($('paste').value);
+$('clear').onclick=()=>{delete T[cur];D=null;save();say(cur+' data cleared.');render()};
+$('term').onchange=e=>{cur=e.target.value;D=T[cur]||null;PC={};say(D?'Showing '+cur+'.':'No marks for '+cur+' yet. Upload them above.');render()};
+$('tpl').onclick=()=>download('cbe-template.csv','Adm,Name,Gender,Parent Phone,Biology Opener,Biology Mid-term,Biology End-term,Core Mathematics Opener,Core Mathematics Mid-term,Core Mathematics End-term\n1001,Learner One,F,0700000001,70,72,75,60,58,62\n1002,Learner Two,M,0700000002,42,45,48,50,47,52\n');
+$('sample').onclick=()=>{
+  const N=['Achieng Otieno','Kiplagat Cheruiyot','Wanjiru Kamau','Lokiru Ekai','Chebet Rotich','Mwende Musyoka','Kipchumba Kiprop','Akinyi Odhiambo','Naserian Lemaron','Barasa Wafula','Jepkorir Sang','Mutua Kioko','Nyaboke Ondieki','Cherop Lomuria','Atieno Ouma','Kiprono Bett','Wambui Njoroge','Lokwang Nakuo','Chelangat Tanui','Otieno Juma'];
+  let s=7;const rnd=()=>(s=(s*9301+49297)%233280)/233280;const ti=TERMS.indexOf(cur),B=N.map(()=>20+rnd()*65);s=101+ti*57;
+  const sub=[...CORE_S,...Object.values(SAMPLE).flat()];
+  let t='Adm,Name,Pathway,Parent Phone,'+sub.flatMap(x=>[x+' Opener',x+' Mid-term',x+' End-term']).join(',')+'\n';
+  N.forEach((n,i)=>{const P=Object.keys(SAMPLE)[i%3],b=B[i]+ti*3;t+=(1001+i)+','+n+','+P+',07000000'+(10+i)+','+sub.flatMap(s2=>(CORE_S.includes(s2)&&(s2!='Core Mathematics'||P=='STEM')&&(s2!='Essential Mathematics'||P!='STEM'))||SAMPLE[P].includes(s2)?[0,1,2].map(()=>Math.round(Math.max(5,Math.min(98,b+rnd()*30-15)))):['','','']).join(',')+'\n'});
+  load(t);
+};
+const TERMS=['Term 1','Term 2','Term 3'];
+const spl=s=>{const i=s.indexOf(':');return i<0?[s,null]:[s.slice(0,i).trim(),s.slice(i+1).trim()]};
+function strandsView(){
+  const g={};D.subjects.forEach(s=>{const[a,b]=spl(s);if(b)(g[a]=g[a]||[]).push([b,s])});
+  const ks=Object.keys(g);
+  if(!ks.length)return "<div class='card empty'>No strands found. Name columns like \"Biology: Cells\" and upload again to score each strand.</div>";
+  const R=D.rows,all=[];
+  const cards=ks.map(k=>{const it=g[k].map(([b,s])=>{const v=R.map(r=>r.sc[s]).filter(x=>x!=null),m=mean(v),low=v.filter(x=>x<58).length;all.push({k,b,m,low});return{l:b,v:m,n:f1(m),c:bd(lv(m))}});return `<div class='card'><h2>${esc(k)}</h2>${bars(it,100)}</div>`}).join('');
+  const re=all.filter(x=>x.m<58).sort((a,b)=>a.m-b.m);
+  return `<div class='card'><h2>Strands to reteach</h2>${re.length?re.map(x=>`<div class='flag'>${esc(x.k)}: ${esc(x.b)} – class mean ${f1(x.m)}% · ${x.low} of ${R.length} learners below ME</div>`).join(''):"<p class='hint'>Every strand has a class mean at Meeting expectations or higher.</p>"}</div><div class='grid2'>${cards}</div>`;
+}
+function trendView(){
+  const ts=TERMS.filter(t=>T[t]);
+  if(ts.length<2)return "<div class='card empty'>Trend needs marks for at least two terms. Choose another term in the upload box, add its marks, then return here. Learners are matched by admission number.</div>";
+  const cm=ts.map(t=>mean(T[t].rows.map(r=>mean(Object.values(r.sc)))));
+  const rows=T[ts[ts.length-1]].rows.map(r=>{const vals=ts.map(t=>{const x=T[t].rows.find(y=>y.adm===r.adm);return x?mean(Object.values(x.sc)):null});const p=vals.slice(0,-1).filter(x=>x!=null).pop();return{n:r.name,vals,d:p==null?null:vals[vals.length-1]-p}}).sort((a,b)=>(a.d==null?0:a.d)-(b.d==null?0:b.d));
+  return `<div class='card'><h2>Class mean by term</h2>${bars(ts.map((t,i)=>({l:t,v:cm[i],n:f1(cm[i]),c:bd(lv(cm[i]))})),100)}</div><div class='card'><h2>Learner change since the previous term</h2><div class='tw'><table><thead><tr><th>Name</th>${ts.map(t=>`<th>${t}</th>`).join('')}<th>Change</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.n)}</td>${r.vals.map(v=>`<td>${v==null?'–':f1(v)}</td>`).join('')}<td class='${r.d==null?'':r.d<=-5?'dn':r.d>=5?'up':''}'>${r.d==null?'–':(r.d>0?'+':'')+f1(r.d)}</td></tr>`).join('')}</tbody></table></div><p class='hint'>Sorted from biggest drop to biggest gain. Drops of 5 points or more are red.</p></div>`;
+}
+const AUTO={EE:'Excellent work. Keep it up.',ME:'Good progress. Keep practising.',AE:'Fair. More practice is needed.',BE:'Needs extra support and practice.'};
+const rmk=(r,s,v)=>(r.rm&&r.rm[s])||AUTO[bd(lv(v))];
+const stOf=r=>{const o={};Object.keys(r.sc).forEach(k=>{const t=(D.tch&&D.tch[k])||'',m=(r.rm&&r.rm[k])||'';if(t||m)o[k]=[t,m]});return o};
+const comment=r=>{const b=bd(r.L),w=r.weak.map(x=>x[0]);const t={EE:'Outstanding work. Keep challenging yourself with extension tasks.',ME:'Good progress. Keep up steady practice to move higher.',AE:'Close to the expected level. More practice and revision will help.',BE:'Needs close support. Regular guided practice and follow-up are recommended.'}[b];return esc(r.name.split(' ')[0])+': '+t+(w.length?(b=='BE'?' Priority areas: ':' Focus on: ')+esc(w.join(', '))+'.':'')};
+function reportsView(){
+  const R=D.rows,prev=TERMS.slice(0,TERMS.indexOf(cur)).reverse().find(t=>T[t]);
+  const list=pick==='all'?R:[R[+pick]||R[0]];
+  const ctl=`<div class='card np'><div class='ctl'><input id='sch' value='${esc(school)}' placeholder='School name' aria-label='School name'><input id='tch' value='${esc(teacher)}' placeholder='Class teacher' aria-label='Class teacher'><select id='pk' aria-label='Learner'><option value='all'>All learners</option>${R.map((r,i)=>`<option value='${i}'${pick==i?' selected':''}>${esc(r.name)}</option>`).join('')}</select></div><div class='row' style='justify-content:flex-start'><button id='pdfall'>Download PDF: all ${R.length} learners</button>${pick==='all'?'':`<button class='ghost' id='pdf1'>Download PDF: this learner only</button>`}<button class='ghost' id='prt'>Print report cards</button></div><p class='hint' id='pdfmsg' role='status'>The PDF has one report card per page, in class order, with the performance curve. If nothing downloads, open this page's link in your browser and try again.</p></div>`;
+  return ctl+list.map(r=>{const pr=prev&&T[prev].rows.find(x=>x.adm===r.adm),pa=pr?mean(Object.values(pr.sc)):null;
+    const N=D.rows.length;
+    return `<div class='rc'><div class='rch'><div><h3>${esc(school)||'School'}</h3><span>Learner progress report</span></div><div class='rct'>${cur} · ${esc(yr)}</div></div><div class='rci'><div><small>Name</small><b>${esc(r.name)}</b></div><div><small>Adm no.</small><b>${esc(r.adm)}</b></div><div><small>Class</small><b>${esc(cls)||'–'}</b></div><div><small>Pathway</small><b>${esc(r.path)}</b></div><div><small>Position</small><b>${r.pos} of ${N}</b></div><div><small>Average</small><b>${f1(r.avg)}% · ${r.L[1]}</b></div></div><div class='tw'><table><thead><tr><th>Learning area</th><th>Opener</th><th>Mid-term</th><th>End-term</th><th>Term mark</th><th>Level</th><th>Points</th><th>Subject teacher</th><th>Remarks</th></tr></thead><tbody>${Object.entries(r.sc).map(([s,v])=>{const l=lv(v);return `<tr><td>${esc(s)}</td>${(r.pc&&r.pc[s]||[null,null,null]).map(p=>`<td>${p==null?'–':f1(p)}</td>`).join('')}<td><b>${v}</b></td><td><span class='pill ${bd(l)}'>${l[1]}</span></td><td>${l[2]}</td><td>${esc((D.tch&&D.tch[s])||'–')}</td><td>${esc(rmk(r,s,v))}</td></tr>`}).join('')}<tr><th>Overall</th><th colspan='3'></th><th>${f1(r.avg)}</th><th><span class='pill ${bd(r.L)}'>${r.L[1]}</span></th><th>${r.L[2]}</th><th colspan='2'></th></tr></tbody></table></div>${pa!=null?`<p>Change from ${prev}: <b class='${r.avg-pa>=0?'up':'dn'}'>${r.avg-pa>0?'+':''}${f1(r.avg-pa)}</b> points.</p>`:''}${curveSvg(curveData(r))}<p><b>Comment:</b> ${comment(r)}</p><p class='hint'>Class teacher: ${esc(teacher)||'__________'} · Signature: __________ · Parent/guardian: __________ · Date: __________</p></div>`}).join('');
+}
+
+function downloadBlob(name,blob){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+function buildReportsPdf(list){
+  const N=D.rows.length,prev=TERMS.slice(0,TERMS.indexOf(cur)).reverse().find(t=>T[t]),H=842,X0=40,CW=515;
+  const COL={EE:'#2f7d4f',ME:'#2b7a9b',AE:'#c98a0b',BE:'#b8412f'},LIGHT={EE:'#e3eee7',ME:'#e1edf2',AE:'#f7eed9',BE:'#f4e1dd'},INK='#17261f',MUTE='#5d6d64',BRAND='#1f4d3a',HEAD='#e7eee8';
+  const clean=x=>String(x==null?'':x).replace(/[\u2013\u2014]/g,'-').replace(/[\u2018\u2019]/g,"'").replace(/[\u201c\u201d]/g,'"').replace(/\u2026/g,'...').replace(/[^\x20-\x7e\u00a0-\u00ff]/g,'?');
+  const cw=c=>'iljI.,:;!|\''.includes(c)?.25:'ftr()-'.includes(c)?.33:c==' '?.278:'mM'.includes(c)?.85:c=='W'?.94:/[0-9]/.test(c)?.556:/[A-Z]/.test(c)?.68:.53;
+  const tw=(t,z,b)=>[...t].reduce((a,c)=>a+cw(c),0)*z*(b?1.07:1);
+  const fit=(t,m,z,b)=>{t=clean(t);if(tw(t,z,b)<=m)return t;while(t.length>1&&tw(t+'..',z,b)>m)t=t.slice(0,-1);return t+'..'};
+  const rgb=h=>[1,3,5].map(i=>(parseInt(h.slice(i,i+2),16)/255).toFixed(3)).join(' ');
+  const f2=n=>(+n).toFixed(1);
+  const wrap=(t,m,z,b)=>{const L=[];let ln='';clean(t).split(' ').forEach(w=>{const x=ln?ln+' '+w:w;if(tw(x,z,b)>m&&ln){L.push(ln);ln=w}else ln=x});if(ln)L.push(ln);return L};
+  const pages=list.map(r=>{
+    const o=[],fillC=h=>o.push(rgb(h)+' rg'),strokeC=h=>o.push(rgb(h)+' RG');
+    const rect=(x,y,w,h,c)=>{fillC(c);o.push(`${f2(x)} ${f2(H-y-h)} ${f2(w)} ${f2(h)} re f`)};
+    const line=(x1,y1,x2,y2,c,w,d)=>{strokeC(c);o.push(`${w||.5} w [${d||''}] 0 d ${f2(x1)} ${f2(H-y1)} m ${f2(x2)} ${f2(H-y2)} l S`)};
+    const text=(t,x,y,z,b,c,al)=>{t=clean(t);const wd=tw(t,z,b),px=al=='c'?x-wd/2:al=='r'?x-wd:x;fillC(c||INK);o.push(`BT /${b?'F2':'F1'} ${z} Tf ${f2(px)} ${f2(H-y)} Td (${t.replace(/[\\()]/g,'\\$&')}) Tj ET`)};
+    const circ=(x,y,r,c)=>{const k=.5523*r,Y=H-y;fillC(c);o.push(`${f2(x+r)} ${f2(Y)} m ${f2(x+r)} ${f2(Y+k)} ${f2(x+k)} ${f2(Y+r)} ${f2(x)} ${f2(Y+r)} c ${f2(x-k)} ${f2(Y+r)} ${f2(x-r)} ${f2(Y+k)} ${f2(x-r)} ${f2(Y)} c ${f2(x-r)} ${f2(Y-k)} ${f2(x-k)} ${f2(Y-r)} ${f2(x)} ${f2(Y-r)} c ${f2(x+k)} ${f2(Y-r)} ${f2(x+r)} ${f2(Y-k)} ${f2(x+r)} ${f2(Y)} c f`)};
+    // header
+    rect(X0,36,CW,44,BRAND);text(fit(school||'School',CW-150,16,true),X0+12,57,16,true,'#ffffff');text('Learner progress report',X0+12,71,9,false,'#dfe9e3');text(cur+' \u00b7 '+yr,X0+CW-12,57,11,true,'#ffffff','r');
+    // learner details
+    rect(X0,90,CW,58,'#f3f6f1');
+    [['Name',r.name],['Adm no.',r.adm],['Class',cls||'-'],['Pathway',r.path||'-'],['Position',r.pos+' of '+N],['Average',f1(r.avg)+'% \u00b7 '+r.L[1]]].forEach(([k,v],i)=>{const x=X0+(i%3)*CW/3+10,y=90+Math.floor(i/3)*29;text(k,x,y+11,7.5,false,MUTE);text(fit(v,CW/3-18,11,true),x,y+24,11,true,INK)});
+    // table
+    const sc=Object.entries(r.sc),tch=D.tch||{},rh=sc.length>12?20:24,mxl=sc.length>12?2:3,W=[112,38,38,38,40,36,34,80,99],XS=W.reduce((a,w,i)=>(a.push(a[i]+w),a),[X0]);
+    const cell=(t,x,mid,m,z,b,c)=>{let L=wrap(t,m,z,b);if(L.length>mxl)L=L.slice(0,mxl-1).concat(fit(L.slice(mxl-1).join(' '),m,z,b));const sp=z*1.2;L.forEach((l,i)=>text(l,x,mid-(L.length-1)*sp/2+z*.35+i*sp,z,b,c))};
+    let y=160;rect(X0,y,CW,20,HEAD);['Learning area','Opener','Mid-term','End-term','Term mark','Level','Points','Subject teacher','Remarks'].forEach((h,i)=>text(h,i==0||i>=7?XS[i]+4:XS[i]+W[i]/2,y+13,7.5,true,INK,i==0||i>=7?'':'c'));y+=20;
+    sc.forEach(([k,v])=>{const l=lv(v),b=bd(l),pc=(r.pc&&r.pc[k])||[null,null,null],mid=y+rh/2;
+      cell(k,XS[0]+4,mid,W[0]-8,8.5,false,INK);
+      pc.forEach((p,i)=>text(p==null?'-':f1(p),XS[i+1]+W[i+1]/2,mid+3,8.5,false,INK,'c'));
+      text(String(v),XS[4]+W[4]/2,mid+3,8.5,true,INK,'c');rect(XS[5]+W[5]/2-13,mid-6,26,12,COL[b]);text(l[1],XS[5]+W[5]/2,mid+3,7.5,true,'#ffffff','c');
+      text(String(l[2]),XS[6]+W[6]/2,mid+3,8.5,false,INK,'c');
+      cell(tch[k]||'-',XS[7]+4,mid,W[7]-8,7.5,false,INK);cell(rmk(r,k,v),XS[8]+4,mid,W[8]-6,6.8,false,INK);
+      line(X0,y+rh,X0+CW,y+rh,'#d8dfd3',.4);y+=rh});
+    rect(X0,y,CW,20,HEAD);text('Overall',XS[0]+4,y+13,9,true,INK);text(f1(r.avg),XS[4]+W[4]/2,y+13,8.5,true,INK,'c');rect(XS[5]+W[5]/2-13,y+4,26,12,COL[bd(r.L)]);text(r.L[1],XS[5]+W[5]/2,y+13,7.5,true,'#ffffff','c');text(String(r.L[2]),XS[6]+W[6]/2,y+13,8.5,true,INK,'c');y+=20;
+    const pr=prev&&T[prev].rows.find(x=>x.adm===r.adm);if(pr){const d=r.avg-mean(Object.values(pr.sc));text('Change from '+prev+': '+(d>0?'+':'')+f1(d)+' points',X0,y+14,9,true,d>=0?COL.EE:COL.BE);y+=18}
+    // performance curve
+    const cd=curveData(r);y+=14;
+    if(cd){const ph=sc.length>14?80:110,cx=X0+30,cwd=CW-30-30,top=y+16,n=cd.labels.length,X=i=>cx+(n==1?cwd/2:i*cwd/(n-1)),Y=v=>top+ph-Math.max(0,Math.min(100,v))/100*ph;
+      text(cd.title,X0,y+6,9,true,INK);
+      [[75,100,'EE'],[41,75,'ME'],[21,41,'AE'],[0,21,'BE']].forEach(([a,b,k])=>rect(cx,Y(b),cwd,Y(a)-Y(b),LIGHT[k]));
+      [0,25,50,75,100].forEach(g=>{line(cx,Y(g),cx+cwd,Y(g),'#cfd8cf',.4);text(String(g),cx-4,Y(g)+2.5,7,false,MUTE,'r')});
+      cd.labels.forEach((l,i)=>text(l,X(i),top+ph+12,8,false,INK,'c'));
+      const path=(vals,col,w,dash)=>{const p=vals.map((v,i)=>v==null?null:[X(i),Y(v)]).filter(Boolean);if(p.length<2)return;const q=smooth(p,top,top+ph).match(/\d+(\.\d+)?/g).map(Number);strokeC(col);o.push(`${w} w [${dash||''}] 0 d 1 J ${q[0]} ${f2(H-q[1])} m`);for(let i=2;i+5<q.length;i+=6)o.push(`${q[i]} ${f2(H-q[i+1])} ${q[i+2]} ${f2(H-q[i+3])} ${q[i+4]} ${f2(H-q[i+5])} c`);o.push('S')};
+      path(cd.c,'#5d6d64',1.4,'4 3');path(cd.s,BRAND,2.4);
+      cd.s.forEach((v,i)=>{if(v==null)return;circ(X(i),Y(v),3.2,BRAND);text(f1(v),X(i),Y(v)-7,8,true,INK,'c')});
+      text('Solid line: this learner. Dashed line: class average. Colour bands: BE, AE, ME and EE levels.',X0,top+ph+25,7.5,false,MUTE);y=top+ph+38}
+    // comment
+    const ta=document.createElement('textarea');ta.innerHTML=comment(r);const words=clean(ta.value).split(' ');let ln='',lines=[];words.forEach(w=>{const t=ln?ln+' '+w:w;if(tw(t,9,false)>CW&&ln){lines.push(ln);ln=w}else ln=t});if(ln)lines.push(ln);
+    text('Comment',X0,y+4,9,true,INK);lines.forEach((t,i)=>text(t,X0,y+17+i*12,9,false,INK));y+=17+lines.length*12+12;
+    text('Class teacher: '+(teacher||'__________')+'    Signature: __________    Parent/guardian: __________    Date: __________',X0,y,8,false,MUTE);
+    line(X0,806,X0+CW,806,'#cfd8cf',.5);text('EE Exceeding expectations \u00b7 ME Meeting expectations \u00b7 AE Approaching expectations \u00b7 BE Below expectations',X0,818,7,false,MUTE);text("OLEPTOO'S DIGITAL HUB",X0+CW,818,7,true,MUTE,'r');
+    return o.join('\n')});
+  const objs=[],add=t=>objs.push(t);add('<< /Type /Catalog /Pages 2 0 R >>');add('');add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+  const kids=[];pages.forEach(c=>{const pid=objs.length+1;kids.push(pid+' 0 R');add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${pid+1} 0 R >>`);add(`<< /Length ${c.length} >>\nstream\n${c}\nendstream`)});
+  objs[1]=`<< /Type /Pages /Kids [${kids.join(' ')}] /Count ${kids.length} >>`;
+  let out='%PDF-1.4\n';const off=[];objs.forEach((t,i)=>{off.push(out.length);out+=`${i+1} 0 obj\n${t}\nendobj\n`});
+  const xr=out.length;out+=`xref\n0 ${objs.length+1}\n0000000000 65535 f \n`+off.map(x=>String(x).padStart(10,'0')+' 00000 n \n').join('')+`trailer\n<< /Size ${objs.length+1} /Root 1 0 R >>\nstartxref\n${xr}\n%%EOF`;
+  const b=new Uint8Array(out.length);for(let i=0;i<out.length;i++)b[i]=out.charCodeAt(i)&255;return b}
+function bindExtra(){
+  bindMarks();bindParents();const s=$('sch');if(!s)return;
+  s.onchange=e=>{school=e.target.value;save();render()};
+  $('tch').onchange=e=>{teacher=e.target.value;save();render()};
+  $('pk').onchange=e=>{pick=e.target.value;render()};
+  $('prt').onclick=()=>window.print();
+  const go=l=>{const m=$('pdfmsg');try{m.textContent='Preparing PDF\u2026';const b=buildReportsPdf(l);downloadBlob('Report-cards-'+(cur+'-'+(cls||school||'class')).replace(/[^\w]+/g,'-')+'.pdf',new Blob([b],{type:'application/pdf'}));m.textContent='PDF created with '+l.length+' report card'+(l.length==1?'':'s')+'. If nothing downloaded, open this page in your browser and try again, or press Print and choose Save as PDF.'}catch(e){m.textContent='The PDF could not be created. Use Print and choose Save as PDF instead.'}};
+  $('pdfall').onclick=()=>go(D.rows);const p1=$('pdf1');if(p1)p1.onclick=()=>go([D.rows[+pick]||D.rows[0]]);
+}
+const PW={'STEM':{'Pure Sciences':['Biology','Chemistry','Physics','General Science','Advanced Mathematics'],'Applied Sciences':['Agriculture','Computer Science','Home Science'],'Technical and Engineering':['Aviation Technology','Building and Construction','Electrical Technology','Metal Work','Power Mechanics','Wood Work','Media Technology','Marine and Fisheries Technology']},'Social Sciences':{'Languages and Literature':['Literature in English','Fasihi ya Kiswahili','Indigenous Language','Sign Language','Arabic','French','German','Mandarin Chinese','Advanced English'],'Humanities and Business':['History and Citizenship','Geography','Christian Religious Education','Islamic Religious Education','Hindu Religious Education','Business Studies']},'Arts and Sports Science':{'Sports Science':['Sports and Recreation','Physical Education'],'Performing Arts':['Music and Dance','Theatre and Film'],'Visual Arts':['Fine Arts']}};
+const CORE=['English','Kiswahili or Kenya Sign Language','Mathematics (Core or Essential)','Community Service Learning'];
+const CORE_S=['English','Kiswahili','Core Mathematics','Essential Mathematics','Community Service Learning'];
+const SAMPLE={'STEM':['Biology','Chemistry','Agriculture'],'Social Sciences':['History and Citizenship','Geography','Business Studies'],'Arts and Sports Science':['Music and Dance','Fine Arts','Sports and Recreation']};
+let PC={},hub='';
+function numCol(rows,i){const ne=rows.filter(r=>r[i]!==''&&r[i]!==undefined);return ne.length>0&&ne.filter(r=>!isNaN(+r[i])).length>=ne.length*0.8}
+const pathOf=r=>{const k=Object.keys(r.meta||{}).find(x=>/pathway/i.test(x)),d=k?r.meta[k]:'';
+  if(/stem|science,? tech/i.test(d))return 'STEM';if(/social/i.test(d))return 'Social Sciences';if(/art|sport/i.test(d))return 'Arts and Sports Science';
+  const v={};Object.keys(r.sc).forEach(s=>{const b=spl(s)[0].toLowerCase();Object.entries(PW).forEach(([p,o])=>Object.values(o).flat().forEach(x=>{if(x.toLowerCase()==b)v[p]=(v[p]||0)+1}))});
+  const top=Object.entries(v).sort((a,b)=>b[1]-a[1])[0];return top?top[0]:'Unassigned'};
+const guide=()=>`<div class='card'><h2>CBE senior school subject guide</h2><p class='hint'>Every learner takes four core areas (${CORE.join(', ')}) plus three electives from their pathway. STEM learners take Core Mathematics; learners in the other pathways take Essential Mathematics.</p>${Object.entries(PW).map(([p,o])=>`<details><summary><b>${p}</b></summary>${Object.entries(o).map(([k,a])=>`<p><b>${k}:</b> ${a.join(', ')}</p>`).join('')}</details>`).join('')}<p class='hint'>Based on KICD and Ministry of Education guidance as reported in the press. Check the current KICD curriculum designs for the final list.</p></div>`;
+function pathView(){
+  const g={};D.rows.forEach(r=>{(g[r.path]=g[r.path]||[]).push(r)});
+  const cards=Object.keys(g).map(p=>{const rs=g[p],m=mean(rs.map(r=>r.avg)),c=dist(rs),subs={};rs.forEach(r=>Object.entries(r.sc).forEach(([s,v])=>(subs[s]=subs[s]||[]).push(v)));
+    return `<div class='card'><h2>${esc(p)} <span class='pill ${bd(lv(m))}'>${f1(m)}% · ${lv(m)[1]}</span></h2><p class='hint'>${rs.length} learners</p>${bars(Object.keys(c).map(k=>({l:k,v:c[k],n:c[k],c:k})),rs.length)}<h2 style='margin-top:14px;font-size:1rem'>Learning areas</h2>${bars(Object.entries(subs).map(([s,v])=>({l:s,v:mean(v),n:f1(mean(v)),c:bd(lv(mean(v)))})),100)}</div>`}).join('');
+  return `<div class='grid2'>${cards}</div>${guide()}`;
+}
+const b64=u=>btoa(String.fromCharCode(...u)),unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function pkey(pin,salt){const m=await crypto.subtle.importKey('raw',new TextEncoder().encode(pin),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},m,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function enc(o,pin){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),k=await pkey(pin,salt),ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},k,new TextEncoder().encode(JSON.stringify(o)))),all=new Uint8Array(28+ct.length);all.set(salt);all.set(iv,16);all.set(ct,28);return b64(all)}
+async function dec(code,pin){const u=unb64(code),k=await pkey(pin,u.slice(0,16)),pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(16,28)},k,u.slice(28));return JSON.parse(new TextDecoder().decode(pt))}
+const pl=r=>({school,teacher,tph,grp,cls,yr,pos:r.pos,n:D.rows.length,term:cur,cv:cvOf(r),st:stOf(r),path:r.path,name:r.name,adm:r.adm,sc:r.sc,hist:TERMS.filter(t=>T[t]).map(t=>{const x=T[t].rows.find(y=>y.adm===r.adm);return x?[t,+f1(mean(Object.values(x.sc)))]:null}).filter(Boolean)});
+const msg=i=>{const r=D.rows[i],p=PC[i];return `Dear parent/guardian of ${r.name}, ${cur} results are ready. Open ${hub||'the school hub link'}, choose Parent portal, paste this code and enter PIN ${p.pin}.\n\nCODE: ${p.code}`};
+function parentsView(){
+  const R=D.rows;
+  return `<div class='card'><h2>Share results with parents</h2><p class='hint'>Each parent gets a private code and a 6-digit PIN for their own child only. The code holds the encrypted report, so no learner data sits on a server. Send it by WhatsApp or SMS. The parent opens the hub link, chooses Parent portal and pastes the code.</p><div class='ctl'><input id='hub' value='${esc(hub)}' aria-label='Hub link to share' placeholder='Paste the web address where you host this hub'></div><button id='gen'>Generate codes for ${R.length} learners</button></div>${contactCard()}${Object.keys(PC).length?`<div class='card'><h2>Parent codes · ${cur}</h2><div class='tw'><table><thead><tr><th>Learner</th><th>PIN</th><th>Send</th></tr></thead><tbody>${R.map((r,i)=>PC[i]?`<tr><td>${esc(r.name)}</td><td>${PC[i].pin}</td><td><button class='ghost' data-m='${i}'>Show message</button> <a class='btn ghost' target='_blank' rel='noopener' href='https://wa.me/?text=${encodeURIComponent(msg(i))}'>WhatsApp</a></td></tr>`:'').join('')}</tbody></table></div><textarea id='mbox' readonly aria-label='Message to copy' placeholder='Tap Show message, then copy the text.'></textarea><p class='hint'>Give each code and PIN only to that learner's parent or guardian.</p></div>`:''}`;
+}
+function bindParents(){
+  const g=$('gen');if(!g)return;
+  $('hub').oninput=e=>{hub=e.target.value};
+  $('tph').oninput=e=>{tph=e.target.value;save()};$('grp').oninput=e=>{grp=e.target.value;save()};
+  $('bm').oninput=e=>{bm=e.target.value;updLinks()};
+  document.querySelectorAll('[data-ph]').forEach(x=>x.oninput=()=>{D.rows[+x.dataset.ph].phone=x.value;save();updLinks()});
+  g.onclick=async()=>{g.disabled=true;g.textContent='Working…';
+    try{PC={};for(let i=0;i<D.rows.length;i++){const pin=String(100000+crypto.getRandomValues(new Uint32Array(1))[0]%900000);PC[i]={pin,code:await enc(pl(D.rows[i]),pin)}}}catch(e){PC={};say('Codes could not be generated in this browser.')}
+    render()};
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{const t=$('mbox');t.value=msg(+b.dataset.m);t.focus();t.select()});
+}
+const tbl=(sc,avg,L,st)=>`<div class='tw'><table><thead><tr><th>Learning area</th><th>Marks</th><th>Level</th><th>Points</th><th>Subject teacher</th><th>Remarks</th></tr></thead><tbody>${Object.entries(sc).map(([s,v])=>{const l=lv(v),x=st&&st[s]||[];return `<tr><td>${esc(s)}</td><td>${v}</td><td><span class='pill ${bd(l)}'>${l[1]}</span></td><td>${l[2]}</td><td>${esc(x[0]||'–')}</td><td>${esc(x[1]||AUTO[bd(l)])}</td></tr>`}).join('')}<tr><th>Overall</th><th>${f1(avg)}</th><th><span class='pill ${bd(L)}'>${L[1]}</span></th><th>${L[2]}</th><th colspan='2'></th></tr></tbody></table></div>`;
+function parentCard(o){
+  const avg=mean(Object.values(o.sc)),L=lv(avg),weak=Object.entries(o.sc).filter(x=>['AE','BE'].includes(bd(lv(x[1])))).sort((a,b)=>a[1]-b[1]),r={name:o.name,L,weak};
+  return `<div class='rc'><h3>${esc(o.school||'School')}</h3><p class='hint'>Learner progress report · ${esc(o.term)}${o.path?' · '+esc(o.path):''}</p><p><b>${esc(o.name)}</b> · Adm ${esc(o.adm)}${o.cls?' · '+esc(o.cls):''}${o.pos?' · Position '+o.pos+' of '+o.n:''}</p>${tbl(o.sc,avg,L,o.st)}${curveSvg(o.cv)}${o.hist&&o.hist.length>1?`<h2 style='margin-top:14px;font-size:1rem'>Average by term</h2>${bars(o.hist.map(h=>({l:h[0],v:h[1],n:h[1],c:bd(lv(h[1]))})),100)}`:''}<p><b>Comment:</b> ${comment(r)}</p><p class='hint'>Class teacher: ${esc(o.teacher)||'–'}</p>${connect(o)}</div><div class='card np'><h2>What the levels mean</h2>${Object.entries(BANDS).map(([k,t])=>`<p><span class='pill ${k}'>${k}</span> ${t}</p>`).join('')}<p class='hint'>Each level has two steps. For example, EE1 is higher than EE2.</p></div>`;
+}
+// ===== OWNER SETTINGS: edit these before you host the hub =====
+const OWNER={name:"OLEPTOO'S DIGITAL HUB",whatsapp:'',email:'',
+  paybill:'',paybillName:'',            // M-Pesa Paybill business number (account number is the school's reference)
+  till:'',tillName:'',                  // M-Pesa Till (Buy Goods) number
+  sendMoney:'',sendMoneyName:'',        // M-Pesa Send Money phone number
+  airtel:'',airtelName:'',              // Airtel Money number
+  bank:'',bankBranch:'',bankAccName:'',bankAccNo:'',  // Bank transfer
+  other:''};                            // Any other way to pay, e.g. cash or cheque at the school office
+const CUR='KES',TRIAL_DAYS=14;
+const PLANS=[{id:'m1',name:'1 month',months:1,price:500},{id:'t1',name:'1 term (3 months)',months:3,price:1200},{id:'m6',name:'6 months',months:6,price:2200},{id:'y1',name:'1 year',months:12,price:4000,tag:'Best value'},{id:'y2',name:'2 years',months:24,price:7000}];
+// ===== End of owner settings =====
+function payModes(ref){const e=esc,nm=x=>x?` (${e(x)})`:'',m=[];
+  if(OWNER.paybill)m.push(`<b>M-Pesa Paybill</b><br>Business number <b>${e(OWNER.paybill)}</b>${nm(OWNER.paybillName)}<br>Account number <b>${ref}</b>`);
+  if(OWNER.till)m.push(`<b>M-Pesa Till (Buy Goods)</b><br>Till number <b>${e(OWNER.till)}</b>${nm(OWNER.tillName)}`);
+  if(OWNER.sendMoney)m.push(`<b>M-Pesa Send Money</b><br>Phone <b>${e(OWNER.sendMoney)}</b>${nm(OWNER.sendMoneyName)}<br>Put <b>${ref}</b> in the message if you can`);
+  if(OWNER.airtel)m.push(`<b>Airtel Money</b><br>Number <b>${e(OWNER.airtel)}</b>${nm(OWNER.airtelName)}`);
+  if(OWNER.bankAccNo)m.push(`<b>Bank transfer</b><br>${e(OWNER.bank||'Bank')}${OWNER.bankBranch?', '+e(OWNER.bankBranch)+' branch':''}<br>Account name <b>${e(OWNER.bankAccName||'-')}</b><br>Account number <b>${e(OWNER.bankAccNo)}</b><br>Reference <b>${ref}</b>`);
+  if(OWNER.other)m.push(`<b>Other</b><br>${e(OWNER.other)}`);
+  return m}
+const PUB={"kty":"EC","crv":"P-256","x":"-cImBpqXqx36a7fWV08XnMZQ-ytOC6wzXyzfVXy_zpg","y":"ozyuk_yn_Z8ctdbRdIDmWvlPaRBmSpYV1nil9ufyxUA"};
+const DAY=864e5;let LIC=null,selPlan=null;
+const ub64u=x=>{x=x.replace(/-/g,'+').replace(/_/g,'/');while(x.length%4)x+='=';return Uint8Array.from(atob(x),c=>c.charCodeAt(0))};
+async function verifyKey(k){try{const p=String(k).split('.');if(p[0]!='OLP1'||p.length!=3)return null;const pay=ub64u(p[1]),sig=ub64u(p[2]),key=await crypto.subtle.importKey('jwk',PUB,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);if(!(await crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,sig,pay)))return null;const o=JSON.parse(new TextDecoder().decode(pay));return o.exp&&o.sch?o:null}catch(e){return null}}
+async function loadLic(){try{const k=localStorage.getItem('olp-key');if(k){const L=await verifyKey(k);if(L)LIC=L}}catch(e){}}
+function trialStart(){try{let f=+localStorage.getItem('olp-first');if(!f){f=Date.now();localStorage.setItem('olp-first',String(f))}return f}catch(e){return Date.now()}}
+const fmtD=t=>new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+function status(){const now=Date.now();
+  if(LIC){const e=new Date(LIC.exp+'T23:59:59').getTime();if(e>=now)return{ok:true,kind:'active',left:Math.ceil((e-now)/DAY),txt:'Active until '+fmtD(e)}}
+  const left=TRIAL_DAYS-Math.floor((now-trialStart())/DAY);
+  if(!LIC&&left>0)return{ok:true,kind:'trial',left,txt:'Free trial \u00b7 '+left+' day'+(left==1?'':'s')+' left'};
+  return{ok:false,kind:'expired',txt:LIC?'Subscription expired':'Free trial ended'}}
+function refreshLic(){const st=status();$('lic').textContent=st.txt+(st.ok&&st.left<=7?' \u00b7 renew soon':'');if(LIC&&!school){school=LIC.sch;save();$('ssch').value=school}}
+function renderPlans(){
+  const st=status(),el=$('plans');
+  el.innerHTML=`<div class='card'><h2>Subscription</h2><p><b>${esc(st.txt)}</b></p><p class='hint'>${st.kind=='trial'?'Every feature is open during the trial. ':st.ok?'':'Subscribe or activate a key to keep using the hub. Your data is safe on this device. '}The Parent portal stays free for parents.</p>${LIC?`<p class='hint'>School: ${esc(LIC.sch)} \u00b7 Plan: ${esc(LIC.plan)} \u00b7 Reference ${esc(LIC.ref||'-')}</p>`:''}<div class='row' style='justify-content:flex-start'><button class='ghost' id='bk'>Download my data backup</button><button class='ghost' id='rs'>Restore a backup</button><input id='rsf' type='file' accept='.json' hidden></div><p class='hint' id='bmsg' role='status'></p></div>
+<div class='card'><h2>1. Choose a plan</h2><div class='plans'>${PLANS.map(p=>`<button class='plan' data-p='${p.id}' aria-pressed='false'>${p.tag?`<span class='tag'>${esc(p.tag)}</span>`:''}<small>${esc(p.name)}</small><b>${CUR} ${p.price.toLocaleString()}</b><small>${CUR} ${Math.round(p.price/p.months).toLocaleString()} per month</small></button>`).join('')}</div></div>
+<div class='card'><h2>2. Your school details</h2><div class='ctl'><input id='rsch' placeholder='School name' aria-label='School name' value='${esc(LIC?LIC.sch:'')}'><input id='rcn' placeholder='Contact person' aria-label='Contact person'><input id='rph' placeholder='Phone number' inputmode='tel' aria-label='Phone number'><input id='rem' type='email' placeholder='Email (optional)' aria-label='Email'><input id='rns' type='number' placeholder='Number of students (optional)' aria-label='Number of students'></div><button id='rq'>Request subscription</button><div id='rqout' style='margin-top:12px'></div></div>
+<div class='card'><h2>3. Ways to pay</h2>${payModes('<i>your reference code</i>').length?payModes('<i>your reference code</i>').map(x=>`<div class='flag pay'>${x}</div>`).join('')+`<p class='hint'>Your reference code appears after you press Request subscription. Quote it when you pay. After paying, send the confirmation message to the hub owner.</p>`:`<p class='hint'>The hub owner will send you payment details when you request a subscription.</p>`}</div>
+<div class='card'><h2>4. Already paid? Activate your key</h2><textarea id='akey' placeholder='Paste the activation key you received' aria-label='Activation key'></textarea><div class='row' style='justify-content:flex-start'><button id='act'>Activate</button></div><p class='hint' id='amsg' role='status'></p></div>`;
+  el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{selPlan=b.dataset.p;el.querySelectorAll('[data-p]').forEach(x=>x.setAttribute('aria-pressed',x==b))});
+  const bm=t=>{$('bmsg').textContent=t};
+  $('bk').onclick=()=>{download('oleptoo-hub-backup.json',JSON.stringify(T,(k,v)=>k=='rows'?undefined:v));bm('Backup downloaded. If nothing downloaded, open the hub in your browser and try again.')};
+  $('rs').onclick=()=>$('rsf').click();
+  $('rsf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o||typeof o!='object')throw 0;Object.assign(T,o);D=T[cur]||null;save();bm('Backup restored.')}catch(x){bm('That file is not a valid backup.')}};r.readAsText(f);e.target.value=''};
+  $('rq').onclick=()=>{const p=PLANS.find(x=>x.id==selPlan),v=id=>$(id).value.trim(),o=$('rqout');
+    if(!p){o.innerHTML="<p class='dn'>Choose a plan first.</p>";return}
+    if(!v('rsch')||!v('rph')){o.innerHTML="<p class='dn'>Enter the school name and a phone number.</p>";return}
+    const ref='OLP-'+Array.from(crypto.getRandomValues(new Uint8Array(6)),b=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b%32]).join('');
+    const text=`Subscription request - ${OWNER.name}\nSchool: ${v('rsch')}\nContact: ${v('rcn')||'-'} (${v('rph')})\nEmail: ${v('rem')||'-'}\nStudents: ${v('rns')||'-'}\nPlan: ${p.name} (${CUR} ${p.price.toLocaleString()})\nReference: ${ref}`;
+    const pay=payModes(ref);
+    const w=fmtP(OWNER.whatsapp);
+    o.innerHTML=`<div class='flag' style='border-left-color:var(--EE)'><b>${esc(p.name)} \u00b7 ${CUR} ${p.price.toLocaleString()}</b><br>Reference: <b>${ref}</b></div><h3 style='font-size:1rem;margin:12px 0 4px'>Pay using any one of these</h3>${pay.length?pay.map(x=>`<div class='flag pay'>${x}</div>`).join(''):'<p>Ask the hub owner for payment details and quote your reference.</p>'}<textarea readonly aria-label='Request message'>${esc(text)}</textarea><div class='row' style='justify-content:flex-start'>${w?`<a class='btn' target='_blank' rel='noopener' href='https://wa.me/${w}?text=${encodeURIComponent(text)}'>Send on WhatsApp</a>`:''}${OWNER.email?`<a class='btn ghost' href='mailto:${esc(OWNER.email)}?subject=${encodeURIComponent('Subscription request '+ref)}&body=${encodeURIComponent(text)}'>Send by email</a>`:''}</div><p class='hint'>Pay, then send this message with your payment confirmation. The hub owner confirms the payment and sends your activation key. Paste it in step 3.</p>`};
+  $('act').onclick=async()=>{const m=$('amsg'),k=$('akey').value.replace(/\s/g,'');m.textContent='Checking\u2026';
+    const L=await verifyKey(k);
+    if(!L){m.textContent='That key is not valid. Check that you pasted all of it.';return}
+    if(new Date(L.exp+'T23:59:59')<new Date()){m.textContent='That key has already expired.';return}
+    if(LIC&&LIC.exp>L.exp){m.textContent='This device already has a subscription that runs longer. Nothing changed.';return}
+    try{localStorage.setItem('olp-key',k)}catch(e){}
+    LIC=L;refreshLic();m.textContent='Activated for '+L.sch+' until '+fmtD(new Date(L.exp+'T12:00:00'))+'. Thank you!';renderPlans();$('amsg').textContent='Activated for '+L.sch+'. Open the Teacher view to continue.'};
+}
+const OBLOB='w9T0TV432fNddMCCVWGyUCZPxeNSbIEJkzO8a009DytoxVJO2rS0YUKsE04fUjiwRL+ke/UFF3CgrDWY3nNt+GAfdC7qDWUryfT2l1GMf8XMwOvptHH9+0poNR3Si1lP0n9ykX/Zuh/2yPV2nkshME1MLdcRXPWecMwNDaGiboqI2mX9svcxh1/a9BjJRbH3oFWgI429s6bs44Ev+Q7UGKNBELGYlceKDJpsZrqbNPag43M8OP/KTLll2ZFfzTJH3i9TawButWU4J5AvUwzbXyQpfzZAjMCa/vk6Vg==';let OPRIV=null,OLOG=[];try{OLOG=JSON.parse(localStorage.getItem('olp-issued')||'[]')}catch(e){}
+const b64e=u=>btoa(String.fromCharCode(...new Uint8Array(u))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const isoD=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+function addMo(d,m){const x=new Date(d.getFullYear(),d.getMonth()+m,1),n=new Date(x.getFullYear(),x.getMonth()+1,0).getDate();x.setDate(Math.min(d.getDate(),n));return x}
+async function unlockOwner(pass){const u=Uint8Array.from(atob(OBLOB),c=>c.charCodeAt(0)),m=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass.replace(/\s/g,'').toUpperCase()),'PBKDF2',false,['deriveKey']),k=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u.slice(0,16),iterations:250000,hash:'SHA-256'},m,{name:'AES-GCM',length:256},false,['decrypt']),pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(16,28)},k,u.slice(28));OPRIV=JSON.parse(new TextDecoder().decode(pt))}
+function renderOwner(){
+  const el=$('owner');
+  if(!OPRIV){
+    el.innerHTML=`<div class='card'><h2>Owner sign-in</h2><p class='hint'>For the hub owner only. Enter your owner passphrase to issue subscription keys.</p><input id='opw' type='password' autocomplete='off' placeholder='Owner passphrase' aria-label='Owner passphrase' style='width:100%'><div class='row' style='justify-content:flex-start'><button id='ounlock'>Unlock</button><button class='ghost' id='oback'>Back to the hub</button></div><p class='hint' id='omsg' role='status'></p></div>`;
+    $('ounlock').onclick=async()=>{$('omsg').textContent='Checking\u2026';try{await unlockOwner($('opw').value);renderOwner()}catch(e){$('omsg').textContent='That passphrase is not correct.'}};
+    $('opw').onkeydown=e=>{if(e.key=='Enter')$('ounlock').click()};
+    $('oback').onclick=()=>setMode('teacher');return}
+  el.innerHTML=`<div class='card'><h2>Issue a subscription key</h2><div class='ctl'><input id='osch' placeholder='School name' aria-label='School name'><input id='oph' inputmode='tel' placeholder='School phone (for WhatsApp, optional)' aria-label='School phone'></div><div class='ctl'><select id='opl' aria-label='Plan'>${PLANS.map(p=>`<option value='${p.months}'${p.months==12?' selected':''}>${esc(p.name)}</option>`).join('')}<option value='0'>Custom months</option></select><input id='ocm' type='number' min='1' placeholder='Months, only if Custom' aria-label='Custom months'></div><div class='ctl'><label>Starts on <input id='ost' type='date' value='${isoD(new Date())}'></label><input id='orf' placeholder='Payment reference (optional)' aria-label='Payment reference'></div><p class='hint'>To renew a school, set the start date to the day its current subscription ends.</p><div class='row' style='justify-content:flex-start'><button id='ogo'>Generate key</button><button class='ghost' id='olock'>Lock owner tools</button><button class='ghost' id='oback'>Back to the hub</button></div><p class='dn' id='oerr' role='status'></p></div>
+<div class='card' id='oout' hidden><h2>Activation key</h2><textarea id='okey' readonly aria-label='Activation key'></textarea><p class='hint'>Message to send to the school</p><textarea id='omsg2' readonly aria-label='Message'></textarea><div class='row' style='justify-content:flex-start'><a class='btn' id='owa' target='_blank' rel='noopener' href='#'>Send on WhatsApp</a></div></div>
+<div class='card'><h2>Keys issued on this device</h2><ul id='olog'></ul><p class='hint' id='onone'>Nothing yet.</p></div>`;
+  const show=e=>{$('oout').hidden=false;$('okey').value=e.key;const t=`Dear ${e.sch}, your ${e.plan} subscription to ${OWNER.name} is confirmed and runs until ${new Date(e.exp+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}.\n\nTo activate: open the hub, tap Subscribe, paste this key in step 3 and tap Activate.\n\nKEY: ${e.key}`;$('omsg2').value=t;$('owa').href='https://wa.me/'+fmtP($('oph').value)+'?text='+encodeURIComponent(t)};
+  const draw=()=>{$('onone').hidden=OLOG.length>0;const ul=$('olog');ul.innerHTML='';OLOG.slice().reverse().forEach(e=>{const li=document.createElement('li'),a=document.createElement('a');a.href='#';a.textContent=e.sch+' \u00b7 '+e.plan+' \u00b7 until '+e.exp+(e.ref?' \u00b7 '+e.ref:'');a.onclick=ev=>{ev.preventDefault();show(e)};li.appendChild(a);ul.appendChild(li)})};
+  $('olock').onclick=()=>{OPRIV=null;renderOwner()};$('oback').onclick=()=>setMode('teacher');
+  $('ogo').onclick=async()=>{const er=$('oerr'),sch=$('osch').value.trim();er.textContent='';if(!sch){er.textContent='Enter the school name.';return}
+    let m=+$('opl').value;if(!m)m=Math.max(1,parseInt($('ocm').value)||0);if(!m){er.textContent='Enter the number of months.';return}
+    const start=$('ost').value?new Date($('ost').value+'T12:00:00'):new Date(),exp=isoD(addMo(start,m)),pl=PLANS.find(p=>p.months==m),plan=pl?pl.name:m+' months',ref=$('orf').value.trim();
+    const payload=new TextEncoder().encode(JSON.stringify({v:1,sch,plan,exp,ref,iat:isoD(new Date())})),k=await crypto.subtle.importKey('jwk',OPRIV,{name:'ECDSA',namedCurve:'P-256'},false,['sign']),sig=await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},k,payload),e={sch,plan,exp,ref,key:'OLP1.'+b64e(payload)+'.'+b64e(sig)};
+    OLOG.push(e);try{localStorage.setItem('olp-issued',JSON.stringify(OLOG))}catch(x){}show(e);draw()};
+  draw();
+}
+function setMode(m){const st=status();if(m=='teacher'&&!st.ok)m='plans';document.body.dataset.mode=m;[['mt','teacher'],['mp','parent'],['ms','plans']].forEach(([a,b])=>$(a).setAttribute('aria-pressed',m==b));if(m=='plans')renderPlans();if(m=='owner')renderOwner();refreshLic()}
+$('mt').onclick=()=>setMode('teacher');$('mp').onclick=()=>setMode('parent');$('ms').onclick=()=>setMode('plans');$('own').onclick=e=>{e.preventDefault();setMode('owner')};
+$('popen').onclick=async()=>{const m=$('pmsg');m.textContent='Opening…';try{const o=await dec($('pcode').value.replace(/\s/g,''),$('ppin').value.trim());m.textContent='';$('pout').innerHTML=parentCard(o)}catch(e){$('pout').innerHTML='';m.textContent='That code and PIN do not match. Check both and try again.'}};
+try{if(/^#p=/.test(location.hash)){$('pcode').value=decodeURIComponent(location.hash.slice(3));setMode('parent')}}catch(e){}
+let grp='',tph='',bm='';
+const fmtP=p=>{p=String(p||'').replace(/[^\d+]/g,'');if(p[0]=='+')return p.slice(1);if(p[0]=='0')return '254'+p.slice(1);if(p[0]=='7'||p[0]=='1')return '254'+p;return p};
+const phoneOf=r=>r.phone!=null?r.phone:((Object.entries(r.meta||{}).find(([k])=>/phone|mobile|contact/i.test(k))||[,''])[1]);
+const bmDef=()=>'Dear parent/guardian of {name}, {term} results: average {avg}% ({level}). Please get in touch if you would like to discuss progress. Regards, '+(teacher||'Class teacher');
+const fill=(r,t)=>t.split('{name}').join(r.name).split('{term}').join(cur).split('{avg}').join(f1(r.avg)).split('{level}').join(r.L[1]);
+const lnk=(i,k)=>{const r=D.rows[i],p=fmtP(phoneOf(r)),t=encodeURIComponent(fill(r,bm||bmDef()));return k=='w'?`https://wa.me/${p}?text=${t}`:k=='s'?`sms:${p}?body=${t}`:`tel:${p}`};
+const updLinks=()=>document.querySelectorAll('[data-k]').forEach(a=>{a.href=lnk(+a.dataset.i,a.dataset.k)});
+function contactCard(){
+  const R=D.rows;
+  return `<div class='card'><h2>Connect with parents</h2><p class='hint'>Add each parent's phone number here, or use a Parent Phone column in your CSV. Then message or call them straight from this list. Numbers starting with 0 are treated as Kenyan (+254).</p><div class='ctl'><input id='tph' value='${esc(tph)}' placeholder='Your phone number (for parents to reach you)' inputmode='tel' aria-label='Your phone number'><input id='grp' value='${esc(grp)}' placeholder='Parents WhatsApp group invite link (optional)' aria-label='WhatsApp group link'></div><p class='hint'>Your number and group link appear in the parent portal after you generate codes again.</p><textarea id='bm' aria-label='Message to parents'>${esc(bm||bmDef())}</textarea><p class='hint'>Use {name}, {term}, {avg} and {level} to personalise each message.</p><div class='tw'><table><thead><tr><th>Learner</th><th>Parent phone</th><th>Connect</th></tr></thead><tbody>${R.map((r,i)=>`<tr><td>${esc(r.name)}</td><td><input data-ph='${i}' value='${esc(phoneOf(r))}' placeholder='07XX XXX XXX' inputmode='tel' aria-label='Parent phone for ${esc(r.name)}' style='width:150px'></td><td><a class='btn ghost' data-k='w' data-i='${i}' target='_blank' rel='noopener' href='${lnk(i,'w')}'>WhatsApp</a> <a class='btn ghost' data-k='s' data-i='${i}' href='${lnk(i,'s')}'>SMS</a> <a class='btn ghost' data-k='c' data-i='${i}' href='${lnk(i,'c')}'>Call</a></td></tr>`).join('')}</tbody></table></div><p class='hint'>SMS and Call open your phone's own apps, so they work best on a phone.</p></div>`;
+}
+const connect=o=>{const p=fmtP(o.tph),w=(o.grp||'').indexOf('https://chat.whatsapp.com/')==0;if(!p&&!w)return '';return `<div class='np' style='margin-top:10px'><b>Talk to the teacher</b><div class='row' style='justify-content:flex-start'>${p?`<a class='btn' target='_blank' rel='noopener' href='https://wa.me/${p}?text=${encodeURIComponent('Hello, I am the parent/guardian of '+o.name+'.')}'>WhatsApp teacher</a><a class='btn ghost' href='tel:${p}'>Call</a>`:''}${w?`<a class='btn ghost' target='_blank' rel='noopener' href='${esc(o.grp)}'>Join parents group</a>`:''}</div></div>`};
+function donut(c,n){const k=['EE','ME','AE','BE'],R=52,C=2*Math.PI*R;let off=0;return `<svg viewBox='0 0 140 140' width='150' height='150' role='img' aria-label='Level distribution'><g transform='rotate(-90 70 70)'>${k.map(x=>{const d=(n?c[x]/n:0)*C,e=`<circle cx='70' cy='70' r='${R}' fill='none' style='stroke:var(--${x})' stroke-width='22' stroke-dasharray='${d} ${C-d}' stroke-dashoffset='${-off}'/>`;off+=d;return e}).join('')}</g><text x='70' y='68' text-anchor='middle' font-size='22' font-weight='800' fill='currentColor'>${n}</text><text x='70' y='86' text-anchor='middle' font-size='10' fill='currentColor'>students</text></svg>`}
+function ranks(){const o=[...D.rows].sort((a,b)=>b.avg-a.avg);o.forEach((r,i)=>{r.pos=i>0&&r.avg===o[i-1].avg?o[i-1].pos:i+1});return o}
+function resultsView(){
+  const o=ranks(),S=D.subjects,cm=mean(o.map(r=>r.avg));
+  return `<div class='card'><h2>${esc(school)} · Results sheet</h2><p class='hint'>${esc(cls)||'Class'} · ${cur} · ${esc(yr)} · ${o.length} students · Class mean ${f1(cm)}% (${lv(cm)[1]})</p><div class='tw'><table><thead><tr><th>Pos</th><th>Adm</th><th>Name</th>${S.map(s=>`<th>${esc(s)}</th>`).join('')}<th>Mean</th><th>Level</th></tr></thead><tbody>${o.map(r=>`<tr><td>${r.pos}</td><td>${esc(r.adm)}</td><td>${esc(r.name)}</td>${S.map(s=>`<td class='mk ${r.sc[s]==null?'':bd(lv(r.sc[s]))}'>${r.sc[s]==null?'':r.sc[s]}</td>`).join('')}<td><b>${f1(r.avg)}</b></td><td><span class='pill ${bd(r.L)}'>${r.L[1]}</span></td></tr>`).join('')}</tbody><tfoot><tr><th colspan='3'>Subject mean</th>${S.map(s=>`<th>${f1(mean(o.map(r=>r.sc[s]).filter(x=>x!=null)))}</th>`).join('')}<th colspan='2'></th></tr></tfoot></table></div><div class='row'><button onclick='window.print()'>Print results sheet</button></div></div>`;
+}
+const EXN=['Opener','Mid-term','End-term'];
+function smooth(p,y0,y1){if(p.length<2)return p.length?'M'+p[0][0]+','+p[0][1]:'';const cl=v=>Math.max(y0,Math.min(y1,v));let d='M'+p[0][0].toFixed(1)+','+p[0][1].toFixed(1);
+  for(let i=0;i<p.length-1;i++){const a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||c;
+    d+=`C${(b[0]+(c[0]-a[0])/6).toFixed(1)},${cl(b[1]+(c[1]-a[1])/6).toFixed(1)} ${(c[0]-(e[0]-b[0])/6).toFixed(1)},${cl(c[1]-(e[1]-b[1])/6).toFixed(1)} ${c[0].toFixed(1)},${c[1].toFixed(1)}`}
+  return d}
+function curveData(r){
+  const ex=[0,1,2].map(k=>{const v=Object.values(r.pc||{}).map(p=>p[k]).filter(x=>x!=null);return v.length?mean(v):null});
+  if(ex.filter(x=>x!=null).length>=2){const cl=[0,1,2].map(k=>{const v=[];D.rows.forEach(x=>Object.values(x.pc||{}).forEach(p=>{if(p[k]!=null)v.push(p[k])}));return v.length?mean(v):null});return{labels:EXN,s:ex,c:cl,title:'Performance curve across the exams'}}
+  const ts=TERMS.filter(t=>T[t]&&T[t].rows.some(x=>x.adm===r.adm));
+  if(ts.length>=2)return{labels:ts,s:ts.map(t=>mean(Object.values(T[t].rows.find(x=>x.adm===r.adm).sc))),c:ts.map(t=>mean(T[t].rows.map(x=>mean(Object.values(x.sc))))),title:'Performance curve across the terms'};
+  return null}
+const cvOf=r=>{const d=curveData(r);return d?{labels:d.labels,s:d.s.map(x=>x==null?null:+f1(x)),c:d.c.map(x=>x==null?null:+f1(x)),title:d.title}:null};
+function curveSvg(cd){if(!cd)return '';
+  const W=340,H=170,L=32,R=28,T0=14,B=24,pw=W-L-R,ph=H-T0-B,n=cd.labels.length,X=i=>L+(n==1?pw/2:i*pw/(n-1)),Y=v=>T0+ph-Math.max(0,Math.min(100,v))/100*ph;
+  const band=(a,b,c)=>`<rect x='${L}' y='${Y(b)}' width='${pw}' height='${Y(a)-Y(b)}' style='fill:var(--${c});opacity:.13'/>`;
+  const line=(v,col,dash,w)=>{const p=v.map((x,i)=>x==null?null:[X(i),Y(x)]).filter(Boolean);return `<path d='${smooth(p,T0,T0+ph)}' fill='none' style='stroke:${col}' stroke-width='${w}' stroke-linecap='round'${dash?` stroke-dasharray='${dash}'`:''}/>`};
+  const dots=cd.s.map((v,i)=>v==null?'':`<circle cx='${X(i)}' cy='${Y(v)}' r='4' style='fill:var(--brand)'/><text x='${X(i)}' y='${Y(v)-8}' text-anchor='middle' font-size='9' font-weight='700' fill='currentColor'>${f1(v)}</text>`).join('');
+  return `<figure style='margin:10px 0'><figcaption class='hint'><b>${esc(cd.title)}</b></figcaption><svg viewBox='0 0 ${W} ${H}' width='100%' role='img' aria-label='${esc(cd.title)}' style='max-width:${W*1.4}px'>${band(75,100,'EE')}${band(41,75,'ME')}${band(21,41,'AE')}${band(0,21,'BE')}${[0,25,50,75,100].map(g=>`<line x1='${L}' x2='${W-R}' y1='${Y(g)}' y2='${Y(g)}' style='stroke:var(--line)' stroke-width='.6'/><text x='${L-4}' y='${Y(g)+3}' text-anchor='end' font-size='8' style='fill:var(--mute)'>${g}</text>`).join('')}${cd.labels.map((l,i)=>`<text x='${X(i)}' y='${H-8}' text-anchor='middle' font-size='9' fill='currentColor'>${esc(l)}</text>`).join('')}${line(cd.c,'var(--mute)','5 4',2)}${line(cd.s,'var(--brand)','',3)}${dots}</svg><div class='hint'>Solid line: this student. Dashed line: class average. Background colours: BE, AE, ME and EE levels.</div></figure>`}
+function distCard(){
+  const b=Array(10).fill(0);D.rows.forEach(r=>{b[Math.min(9,Math.floor(r.avg/10))]++});
+  const mx=Math.max(...b,1),W=340,H=160,L=28,R=10,T0=10,B=26,pw=W-L-R,ph=H-T0-B,X=v=>L+v/100*pw,Y=v=>T0+ph-v/mx*ph*.9;
+  const line=smooth(b.map((v,i)=>[X(i*10+5),Y(v)]),T0,T0+ph),area=line+`L${X(95)},${T0+ph}L${X(5)},${T0+ph}Z`,m=mean(D.rows.map(r=>r.avg));
+  const bd2=(a,z,c)=>`<rect x='${X(a)}' y='${T0}' width='${X(z)-X(a)}' height='${ph}' style='fill:var(--${c});opacity:.13'/>`;
+  return `<div class='card'><h2>Class results curve</h2><svg viewBox='0 0 ${W} ${H}' width='100%' role='img' aria-label='Distribution of student averages' style='max-width:${W*1.4}px'>${bd2(0,21,'BE')}${bd2(21,41,'AE')}${bd2(41,75,'ME')}${bd2(75,100,'EE')}<path d='${area}' style='fill:var(--brand);opacity:.18'/><path d='${line}' fill='none' style='stroke:var(--brand)' stroke-width='3' stroke-linecap='round'/><line x1='${X(m)}' x2='${X(m)}' y1='${T0}' y2='${T0+ph}' style='stroke:var(--ink)' stroke-width='1.5' stroke-dasharray='4 3'/><text x='${X(m)}' y='${T0+8}' dx='4' font-size='9' fill='currentColor'>Mean ${f1(m)}</text>${[0,20,40,60,80,100].map(g=>`<text x='${X(g)}' y='${H-8}' text-anchor='middle' font-size='9' style='fill:var(--mute)'>${g}</text>`).join('')}<line x1='${L}' x2='${W-R}' y1='${T0+ph}' y2='${T0+ph}' style='stroke:var(--line)'/></svg><p class='hint'>Number of students at each average mark. The dashed line is the class mean.</p></div>`}
+
+function applyBasis(){
+  Object.values(T).forEach(t=>{if(!t.all)t.all=t.rows||[];t.list=t.list||t.subjects||[];t.max=t.max||{};t.tch=t.tch||{};
+    t.all.forEach(r=>{r.sc=r.sc||{};r.ex=r.ex||{};(r.dv||[]).forEach(x=>delete r.sc[x]);r.dv=[];r.pc={};
+      Object.entries(r.ex).forEach(([x,e])=>{const mx=t.max[x]||[100,100,100],p=[0,1,2].map(k=>e[k]==null?null:Math.max(0,Math.min(100,e[k]/mx[k]*100)));r.pc[x]=p;
+        let sw=0,sv=0;p.forEach((v,k)=>{if(v!=null&&W[k]>0){sw+=W[k];sv+=W[k]*v}});
+        if(!sw){const q=p.filter(v=>v!=null);if(q.length){sv=mean(q);sw=1}}
+        if(sw){r.sc[x]=Math.round(sv/sw*10)/10;r.dv.push(x)}})});
+    t.rows=t.all.filter(r=>Object.keys(r.sc).length);
+    t.subjects=t.list.filter(x=>t.rows.some(r=>r.sc[x]!=null))});
+}
+const examCard=()=>{const m=[0,1,2].map(k=>{const v=[];D.rows.forEach(r=>Object.values(r.pc||{}).forEach(p=>{if(p[k]!=null)v.push(p[k])}));return v.length?mean(v):null});if(m.every(x=>x==null))return '';return `<div class='card'><h2>Class mean by exam</h2>${bars(m.map((x,k)=>x==null?null:({l:EXN[k],v:x,n:f1(x),c:bd(lv(x))})).filter(Boolean),100)}<p class='hint'>Average of all subjects, as a percentage.</p></div>`};
+const subInfo=s=>{const em=[0,1,2].map(k=>{const v=D.rows.map(r=>r.pc&&r.pc[s]?r.pc[s][k]:null).filter(x=>x!=null);return v.length?EXN[k]+' '+f1(mean(v))+'%':''}).filter(Boolean),t=D.tch&&D.tch[s]?'Subject teacher: '+esc(D.tch[s]):'';return t||em.length?`<p class='hint'>${[t,em.join(' \u00b7 ')].filter(Boolean).join(' \u00b7 ')}</p>`:''};
+function moreSubs(L){const seen=new Set(L);return [['Core subjects',CORE_S],...PATHS.map(p=>[p+' subjects',Object.values(PW[p]).flat()])].map(([g,a])=>{const o=a.filter(x=>!seen.has(x));o.forEach(x=>seen.add(x));return o.length?`<optgroup label='${esc(g)} (choose to add)'>${o.map(x=>`<option>${esc(x)}</option>`).join('')}</optgroup>`:''}).join('')}
+function marksView(){
+  const L=D.list||[],A=D.all;if(!msub||!L.includes(msub))msub=L[0]||'';
+  const s=msub,mx=D.max[s]||[100,100,100],N=A.length;
+  const trk=L.map(x=>{const n=A.filter(r=>r.sc[x]!=null).length;return{l:x+(D.tch[x]?' ('+D.tch[x]+')':''),v:n,n:n+'/'+N,c:n==N?'EE':n?'AE':'BE'}});
+  return `<div class='card'><h2>Term mark weighting</h2><p class='hint'>How Opener, Mid-term and End-term combine into each subject's term mark. Use 0 to leave an exam out. Equal weights give a simple average.</p><div class='ctl'>${[0,1,2].map(k=>`<label>${EXN[k]} <input id='w${k}' type='number' min='0' value='${W[k]}' aria-label='${EXN[k]} weight'></label>`).join('')}</div></div>
+<div class='card'><h2>Marks entry by subject</h2><p class='hint'>Enter marks and a short remark for each learner. If you leave a remark blank, the report card uses a standard remark for the level. Pick any CBC subject from the list. Subjects not yet in your class are added when you choose them. Each subject teacher enters marks for their own subject, or downloads the template, fills it in a spreadsheet and uploads it back. Marks are saved to ${cur}.</p>
+<div class='ctl'><select id='msub' aria-label='Subject'><optgroup label='Subjects in this class'>${L.map(x=>`<option${x==s?' selected':''}>${esc(x)}</option>`).join('')}</optgroup>${moreSubs(L)}</select><input id='mtch' value='${esc(D.tch[s]||'')}' placeholder='Subject teacher' aria-label='Subject teacher'></div>
+<div class='ctl'><input id='mnew' placeholder='Add another subject' aria-label='New subject'><button class='ghost' id='madd'>Add subject</button></div>
+<div class='row' style='justify-content:flex-start'><button class='ghost' id='mtpl'>Download template</button><button class='ghost' id='mup'>Upload filled CSV</button><input id='mfile' type='file' accept='.csv,.tsv,.txt' hidden></div>
+${s?`<div class='tw'><table id='mtbl'><thead><tr><th>#</th><th>Adm</th><th>Name</th><th>${EXN[0]}</th><th>${EXN[1]}</th><th>${EXN[2]}</th><th>Subject teacher remarks</th></tr><tr><th colspan='3'>Marks out of</th>${[0,1,2].map(k=>`<th><input data-mx='${k}' type='number' min='1' value='${mx[k]}' style='width:64px' aria-label='${EXN[k]} out of'></th>`).join('')}<th></th></tr></thead><tbody>${A.map((r,i)=>`<tr data-i='${i}'><td>${i+1}</td><td>${esc(r.adm)}</td><td>${esc(r.name)}</td>${[0,1,2].map(k=>`<td><input data-x='${k}' type='number' min='0' value='${r.ex[s]&&r.ex[s][k]!=null?r.ex[s][k]:''}' style='width:64px' aria-label='${esc(r.name)} ${EXN[k]}'></td>`).join('')}<td><input data-rm type='text' value='${esc(r.rm&&r.rm[s]||'')}' placeholder='Remark (optional)' maxlength='120' style='width:200px' aria-label='${esc(r.name)} remark'></td></tr>`).join('')}</tbody></table></div><div class='row' style='justify-content:flex-start'><button id='msave'>Save ${esc(s)} marks</button></div>`:"<p class='hint'>Add a subject to begin.</p>"}</div>
+<div class='card'><h2>Marks submitted</h2>${bars(trk,N)}<p class='hint'>Green means every student has marks for that subject.</p></div>`;
+}
+function saveMarks(){const s=msub;if(!s)return 0;const mx=[0,1,2].map(k=>Math.max(1,parseFloat(document.querySelector(`[data-mx='${k}']`).value)||100));D.max[s]=mx;D.tch[s]=$('mtch').value.trim();let n=0;
+  document.querySelectorAll('#mtbl tbody tr').forEach(tr=>{const r=D.all[+tr.dataset.i],e=[0,1,2].map(k=>{const v=parseFloat(tr.querySelector(`[data-x='${k}']`).value);return isNaN(v)?null:Math.max(0,Math.min(mx[k],v))});const ri=tr.querySelector('[data-rm]');if(ri){r.rm=r.rm||{};const t=ri.value.trim();if(t)r.rm[s]=t;else delete r.rm[s]}if(e.some(v=>v!=null)){r.ex[s]=e;n++}else delete r.ex[s]});save();return n}
+function bindMarks(){const sel=$('msub');if(!sel)return;
+  [0,1,2].forEach(k=>{$('w'+k).onchange=e=>{W[k]=Math.max(0,parseFloat(e.target.value)||0);save();render()}});
+  sel.onchange=e=>{saveMarks();const v=e.target.value;if(!D.list.includes(v))D.list.push(v);msub=v;save();render()};
+  $('madd').onclick=()=>{const v=$('mnew').value.trim();if(!v)return;saveMarks();if(!D.list.includes(v))D.list.push(v);msub=v;save();render()};
+  const sv=$('msave');if(sv)sv.onclick=()=>{const n=saveMarks();say(n+' students have '+msub+' marks saved.');render()};
+  $('mtpl').onclick=()=>{if(!msub){say('Add a subject first.');return}const q=x=>'\"'+String(x).replace(/\"/g,'\"\"')+'\"';download(msub.replace(/[^\w]+/g,'-')+'-marks-template.csv',['Adm,Name,Opener,Mid-term,End-term,Remarks',...D.all.map(r=>[r.adm,r.name,...[0,1,2].map(k=>r.ex[msub]&&r.ex[msub][k]!=null?r.ex[msub][k]:''),r.rm&&r.rm[msub]||''].map(q).join(','))].join('\n'));say('Template downloaded. Fill in the marks, then use Upload filled CSV.')};
+  $('mup').onclick=()=>$('mfile').click();
+  $('mfile').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const L=rd.result.replace(/\r/g,'').split('\n').filter(x=>x.trim());if(L.length<2){say('That file has no rows.');return}
+    const d=L[0].includes('\t')?'\t':',',h=splitLine(L[0],d),ix=re=>h.findIndex(x=>re.test(x));let a=ix(/adm|^no|^id$/i),nm=ix(/name/i),c=[ix(/open/i),ix(/mid/i),ix(/end/i)];if(c.every(x=>x<0))c=[2,3,4];if(a<0)a=0;if(nm<0)nm=1;const rmI=ix(/remark|comment/i);
+    const byA={},byN={};D.all.forEach((r,i)=>{byA[String(r.adm).trim()]=i;byN[r.name.trim().toLowerCase()]=i});let hit=0;
+    L.slice(1).forEach(l=>{const p=splitLine(l,d),i=byA[(p[a]||'').trim()]!=null?byA[(p[a]||'').trim()]:byN[(p[nm]||'').trim().toLowerCase()];if(i==null)return;const tr=document.querySelector(`#mtbl tbody tr[data-i='${i}']`);if(!tr)return;c.forEach((ci,k)=>{if(ci>=0&&p[ci]!==undefined&&p[ci]!==''&&!isNaN(+p[ci]))tr.querySelector(`[data-x='${k}']`).value=p[ci]});if(rmI>=0&&(p[rmI]||'').trim()){const ri=tr.querySelector('[data-rm]');if(ri)ri.value=p[rmI].trim()}hit++});
+    say(hit+' of '+D.all.length+' students matched. Check the marks, then press Save.')};rd.readAsText(f);e.target.value=''};
+}
+const PATHS=['STEM','Social Sciences','Arts and Sports Science'];
+function shRow(r,i){return `<tr data-k='${r.k==null?'':r.k}'><td>${i+1}</td><td><input data-f='adm' value='${esc(r.adm||'')}' style='width:80px' aria-label='Admission number'></td><td><input data-f='name' value='${esc(r.name||'')}' style='width:180px' aria-label='Student name'></td><td><input data-f='phone' value='${esc(r.phone||'')}' style='width:120px' inputmode='tel' aria-label='Parent phone'></td><td><select data-f='path' aria-label='Pathway' style='width:auto'><option value=''>\u2013</option>${PATHS.map(p=>`<option${r.path==p?' selected':''}>${p}</option>`).join('')}</select></td><td><button class='ghost' data-del='1' aria-label='Remove student'>\u2715</button></td></tr>`}
+function sheetHTML(rows){return `<div class='tw'><table id='shtbl'><thead><tr><th>#</th><th>Adm</th><th>Name</th><th>Parent phone</th><th>Pathway</th><th></th></tr></thead><tbody>${rows.map((r,i)=>shRow(r,i)).join('')}</tbody></table></div><div class='row' style='justify-content:flex-start'><button class='ghost' id='sadd1'>Add student</button><button id='sgo'>Save class list</button></div>`}
+function readSheet(){const rows=[];document.querySelectorAll('#shtbl tbody tr').forEach(tr=>{const g=f=>tr.querySelector(`[data-f='${f}']`).value.trim(),name=g('name');if(name)rows.push({k:tr.dataset.k,adm:g('adm')||String(rows.length+1),name,phone:g('phone'),path:g('path')})});return rows}
+function saveSetup(){school=$('ssch').value.trim()||school;teacher=$('stch').value.trim();cls=$('scls').value.trim();yr=$('syr').value.trim()||yr;save()}
+const subsIn=()=>$('ssub').value.split(',').map(x=>x.trim()).filter((x,i,a)=>x&&a.indexOf(x)==i);
+$('sadd').onchange=e=>{const v=e.target.value;if(!v)return;const add=v=='Core subjects'?CORE_S:v=='Core subjects (STEM)'?CORE_S.filter(x=>x!='Essential Mathematics'):v=='Core subjects (other pathways)'?CORE_S.filter(x=>x!='Core Mathematics'):Object.values(PW[v]).flat(),have=subsIn();$('ssub').value=[...have,...add.filter(x=>!have.includes(x))].join(', ');e.target.value=''};
+function bindSheet(){const b=$('sgo');if(!b)return;
+  $('sadd1').onclick=()=>{const tb=document.querySelector('#shtbl tbody');tb.insertAdjacentHTML('beforeend',shRow({},tb.rows.length))};
+  $('shtbl').onclick=e=>{if(e.target.dataset.del){e.target.closest('tr').remove();[...document.querySelectorAll('#shtbl tbody tr')].forEach((tr,i)=>tr.cells[0].textContent=i+1)}};
+  b.onclick=()=>{const rs=readSheet(),subs=subsIn(),old=D&&D.all?D.all:[];
+    if(!rs.length){say('Add at least one student name.');return}
+    const list=subs.length?subs:(D&&D.list)||[];if(!list.length){say('Add at least one subject.');return}
+    saveSetup();
+    const all=rs.map(x=>{const o=x.k!==''&&old[+x.k]?old[+x.k]:{sc:{},ex:{},meta:{}};o.adm=x.adm;o.name=x.name;o.phone=x.phone;o.meta=o.meta||{};if(x.path)o.meta.Pathway=x.path;else delete o.meta.Pathway;return o});
+    D=T[cur]=Object.assign(D||{},{all,list,max:(D&&D.max)||{},tch:(D&&D.tch)||{}});PC={};msub='';save();say('Class list saved: '+all.length+' students, '+list.length+' subjects.');tab='marks';render();$('app').scrollIntoView()}}
+$('sbuild').onclick=()=>{const subs=subsIn(),n=Math.max(1,Math.min(300,parseInt($('sn').value)||0));if(!subs.length||!$('sn').value){say('Enter the number of students and at least one subject.');return}saveSetup();$('sheet').innerHTML=sheetHTML(Array.from({length:n},()=>({})));bindSheet()};
+$('sedit').onclick=()=>{if(!D||!D.all){say('There is no class list yet.');return}$('ssub').value=(D.list||[]).join(', ');$('sn').value=D.all.length;$('sheet').innerHTML=sheetHTML(D.all.map((r,i)=>({k:i,adm:r.adm,name:r.name,phone:r.phone!=null?r.phone:phoneOf(r),path:(r.meta&&r.meta.Pathway)||''})));bindSheet()};
+restore();$('term').value=cur;$('ssch').value=school;$('stch').value=teacher;$('scls').value=cls;$('syr').value=yr;render();
+loadLic().then(()=>{if(document.body.dataset.mode!='parent')setMode('teacher');else refreshLic()});
+</script>
+</body>
+</html>
